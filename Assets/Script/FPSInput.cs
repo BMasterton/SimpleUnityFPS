@@ -5,22 +5,45 @@ using UnityEngine;
 public class FPSInput : MonoBehaviour
 {
     // Start is called before the first frame update
+    private CharacterController charController;
     private float speed = 9.0f;
-    float horizInput;
-    float vertInput;
+    private float gravity = -9.8f;
+
+    //float horizInput;
+    //float vertInput;
     void Start()
     {
-        
+        charController = GetComponent<CharacterController>();
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
 
-        horizInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizInput, 0, vertInput) * Time.deltaTime * speed;
+        float horizInput = Input.GetAxis("Horizontal");
+        float vertInput = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(horizInput, 0, vertInput);
 
-        transform.Translate(movement);
+        //Clamp magnitude to limit diagonal movement 
+        movement = Vector3.ClampMagnitude(movement, 1.0f);
+
+        //take speed into account
+        movement *= speed;
+
+        movement.y = gravity;
+
+        //make movement processor independant 
+        movement *= Time.deltaTime;
+
+        //Convert local to global coordianates
+        movement = transform.TransformDirection(movement);
+
+
+        charController.Move(movement);
     }
+
 }
+
+
