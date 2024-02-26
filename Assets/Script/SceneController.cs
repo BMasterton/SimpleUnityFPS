@@ -12,15 +12,6 @@ public class SceneController : MonoBehaviour
     private GameObject[] enemies = new GameObject[5];
     // Update is called once per frame
 
-
-   //private void Start()
-    //{
-    //    for (int i = 0; i < enemyAmount; i++) { 
-    //        enemies[i] = enemy ;
-        
-    //    }
-        
-    //}
     void Update()
     {
         for (int i = 0; i < enemyAmount; i++)
