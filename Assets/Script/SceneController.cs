@@ -25,7 +25,7 @@ public class SceneController : MonoBehaviour
         for (int i = 0; i < iguanaAmount; i++)
         {
             iguanas[i] = Instantiate(iguana) as GameObject;
-            //iguanas[i].transform = iguanaSpawnPt;
+            iguanas[i].transform.position = iguanaSpawnPt.position;
             float angle = Random.Range(0, 360);
             iguanas[i].transform.Rotate(0, angle, 0);
             
