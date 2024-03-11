@@ -9,13 +9,12 @@ public class RayShooter : MonoBehaviour
     private Camera cam;
 
     [SerializeField]
-    private int aimSize = 16;
+
 
     void Start()
     {
         cam = GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       
 
     }
 
@@ -62,12 +61,12 @@ public class RayShooter : MonoBehaviour
 
     void OnGUI()
     {
-        GUIStyle style = new GUIStyle();
-        style.fontSize = aimSize;
-        // find the center of the camera view and adjust for asterisk
-        float posX = cam.pixelWidth / 2 - aimSize / 4;
-        float posY = cam.pixelHeight / 2 - aimSize / 2;
-        GUI.Label(new Rect(posX, posY, aimSize, aimSize), "*", style);
+        //GUIStyle style = new GUIStyle();
+        //style.fontSize = aimSize;
+        //// find the center of the camera view and adjust for asterisk
+        //float posX = cam.pixelWidth / 2 - aimSize / 4;
+        //float posY = cam.pixelHeight / 2 - aimSize / 2;
+        //GUI.Label(new Rect(posX, posY, aimSize, aimSize), "*", style);
     }
 
 }
