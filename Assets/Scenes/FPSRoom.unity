@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.7859696, g: 0.6274565, b: 0.38782132, a: 1}
+  m_IndirectSpecularColor: {r: 0.78590083, g: 0.6274885, b: 0.3877856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -943,6 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19adaee7c265a35449105b982f83fb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ui: {fileID: 1525256157}
   iguana: {fileID: 141256, guid: b4806bcfd71324778b360c0299195b34, type: 3}
   iguanaSpawnPt: {fileID: 1158477956}
   enemyPrefab: {fileID: 8839345065797323241, guid: cfb821373cd541642be8c36c9247a882, type: 3}
@@ -14151,7 +14152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e80ad49151a864382b5d41f1e789f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiController: {fileID: 1525256157}
   settingsPopup: {fileID: 1813569371}
 --- !u!43 &2032277595
 Mesh:

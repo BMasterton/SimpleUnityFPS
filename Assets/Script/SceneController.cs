@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SceneController : MonoBehaviour
 {
+    [SerializeField] private UIController ui;
+    private int score = 0;
+
     [SerializeField]
     private GameObject iguana;
 
@@ -22,6 +25,8 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+
+        ui.UpdateScore(score);
         for (int i = 0; i < iguanaAmount; i++)
         {
             iguanas[i] = Instantiate(iguana) as GameObject;
@@ -40,10 +45,46 @@ public class SceneController : MonoBehaviour
                 enemies[i] = Instantiate(enemyPrefab) as GameObject;
                 
                 enemies[i].transform.position = spawnPoint;
+               
                 
                 float angle = Random.Range(0, 360);
                 enemies[i].transform.Rotate(0, angle, 0);
+                WanderingAI ai = enemies[i].GetComponent<WanderingAI>();
+                ai.SetDifficulty(GetDifficulty());
             }
         }
     }
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.AddListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+    }
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.RemoveListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+    }
+   
+    private void OnEnemyDead()
+    {
+        score++;
+        ui.UpdateScore(score);
+    }
+
+    private void OnDifficultyChanged(int newDifficulty)
+    {
+        Debug.Log("Scene.OnDifficultyChanged(" + newDifficulty + ")");
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            WanderingAI ai = enemies[i].GetComponent<WanderingAI>();
+            ai.SetDifficulty(newDifficulty);
+        }
+    }
+
+    public int GetDifficulty()
+    {
+        return PlayerPrefs.GetInt("difficulty", 1);
+    }
+
 }

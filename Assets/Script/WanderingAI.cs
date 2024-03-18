@@ -13,6 +13,8 @@ public class WanderingAI : MonoBehaviour
     private GameObject laserbeam;
     public float fireRate = 2.0f;
     private float nextFire = 0.0f;
+    private float baseSpeed = 0.25f;
+    float difficultySpeedDelta = 0.3f; // the change in speed per level of difficulty 
 
     public enum EnemyStates { alive, dead};
     private EnemyStates state;
@@ -72,6 +74,12 @@ public class WanderingAI : MonoBehaviour
         Debug.DrawLine(transform.position, rangeTest);
         //draw a wire sphere at the point on the end of the range vector.
         Gizmos.DrawWireSphere(rangeTest, sphereRadius);
+    }
+
+    public void SetDifficulty(int difficulty)
+    {
+        Debug.Log("WanderingAI.SetDifficulty(" + difficulty + ")");
+        enemySpeed = baseSpeed + (difficulty * difficultySpeedDelta);
     }
 
 }

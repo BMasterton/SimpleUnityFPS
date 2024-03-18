@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsPopup : MonoBehaviour
+public class SettingsPopup : BasePopup
 {
     // Start is called before the first frame update
     [SerializeField] private TextMeshProUGUI difficultyLabel;
@@ -17,6 +17,7 @@ public class SettingsPopup : MonoBehaviour
     public void OnOKButton()
     {
         PlayerPrefs.SetInt("difficulty", (int)difficultySlider.value);
+        Messenger<int>.Broadcast(GameEvent.DIFFICULTY_CHANGED, (int)difficultySlider.value);
     }
 
     public void OnCancelButton()
@@ -28,20 +29,14 @@ public class SettingsPopup : MonoBehaviour
     {
         
     }
-    public void Open()
+    override public void Open()
     {
-        gameObject.SetActive(true);
+        base.Open();
+        //gameObject.SetActive(true);
         difficultySlider.value = PlayerPrefs.GetInt("difficulty", 1);
         UpdateDifficulty(difficultySlider.value);
     }
-    public void Close()
-    {
-        gameObject.SetActive(false);
-    }
-    public bool IsActive()
-    {
-        return gameObject.activeSelf;
-    }
+  
 
     public void UpdateDifficulty(float difficulty)
     {

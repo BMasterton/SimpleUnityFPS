@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using BasePopup;
 
-public class OptionsPopup : MonoBehaviour
+public class OptionsPopup : BasePopup
 {
-    [SerializeField] private UIController uiController;
+    //[SerializeField] private UIController uiController;
     [SerializeField] private SettingsPopup settingsPopup;
     // Start is called before the first frame update
     void Start()
@@ -19,18 +20,18 @@ public class OptionsPopup : MonoBehaviour
         
     }
 
-    public void Open()
-    {
-        gameObject.SetActive(true);
-    }
-    public void Close()
-    {
-        gameObject.SetActive(false);
-    }
-    public bool IsActive()
-    {
-        return gameObject.activeSelf;
-    }
+    //public void Open()
+    //{
+    //    gameObject.SetActive(true);
+    //}
+    //public void Close()
+    //{
+    //    gameObject.SetActive(false);
+    //}
+    //public bool IsActive()
+    //{
+    //    return gameObject.activeSelf;
+    //}
     public void OnSettingsButton()
     {
         Close();
@@ -45,7 +46,7 @@ public class OptionsPopup : MonoBehaviour
     public void OnReturnToGameButton()
     {
         Debug.Log("return to game");
-        uiController.SetGameActive(true);
+        //uiController.SetGameActive(true);
         Close();
     }
 }
