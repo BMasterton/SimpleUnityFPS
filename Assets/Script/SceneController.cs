@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
@@ -38,15 +39,16 @@ public class SceneController : MonoBehaviour
     }
     void Update()
     {
+        //TODO UNDO THIS TO MAKE ENEMIES SPAWN
         for (int i = 0; i < enemyAmount; i++)
         {
             if (enemies[i] == null)
             {
                 enemies[i] = Instantiate(enemyPrefab) as GameObject;
-                
+
                 enemies[i].transform.position = spawnPoint;
-               
-                
+
+
                 float angle = Random.Range(0, 360);
                 enemies[i].transform.Rotate(0, angle, 0);
                 WanderingAI ai = enemies[i].GetComponent<WanderingAI>();
@@ -55,21 +57,35 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public void OnRestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void Awake()
     {
         Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.AddListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+        Messenger.AddListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
+        Messenger.AddListener(GameEvent.RESTART_GAME, OnRestartGame);
     }
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.RemoveListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+        Messenger.RemoveListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
+        Messenger.RemoveListener(GameEvent.RESTART_GAME, OnRestartGame);
     }
    
     private void OnEnemyDead()
     {
         score++;
         ui.UpdateScore(score);
+    }
+
+    private void OnPlayerDead()
+    {
+        ui.ShowGameOverPopup();
     }
 
     private void OnDifficultyChanged(int newDifficulty)

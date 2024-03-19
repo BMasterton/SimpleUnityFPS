@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FPSInput : MonoBehaviour
@@ -8,6 +9,7 @@ public class FPSInput : MonoBehaviour
     private CharacterController charController;
     private float speed = 9.0f;
     private float gravity = -9.8f;
+    private float pushForce = 5.0f;
 
     //float horizInput;
     //float vertInput;
@@ -42,6 +44,16 @@ public class FPSInput : MonoBehaviour
 
 
         charController.Move(movement);
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        // does it have a rigidbody and is Physics enabled?
+        if (body != null && !body.isKinematic)
+        {
+            body.velocity = hit.moveDirection * pushForce;
+        }
     }
 
 }
